@@ -8,8 +8,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 
-class Login : Fragment() {
 
+class About_it : Fragment() {
 
 
     override fun onCreateView(
@@ -17,8 +17,6 @@ class Login : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-
-        return inflater.inflate(R.layout.fragment_login, container, false)
+        return inflater.inflate(R.layout.fragment_about_it, container, false)
     }
-
 }
