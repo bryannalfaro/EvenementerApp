@@ -7,12 +7,13 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.evenementerapp.R
 import com.example.evenementerapp.databinding.FragmentRecyclerEventsBinding
 import com.example.evenementerapp.network.objects.Event
-import com.example.evenementerapp.ui.home.HomeViewPagerAdapter
+import kotlinx.android.synthetic.main.fragment_recycler_events.*
 
 class RecyclerEventsFragment: Fragment() {
 
@@ -41,12 +42,16 @@ class RecyclerEventsFragment: Fragment() {
         // Setting elements
         recycler.adapter = adapter
         recycler.layoutManager = LinearLayoutManager(context)
-        // Listeners
+        // prueba
         var events = ArrayList<Event>()
         events.add(Event("nuevo"))
         events.add(Event("probando"))
         events.add(Event("otro"))
         adapter.setEvents(events)
+        // Listeners
+        binding.fabCreateEvent.setOnClickListener {
+            it.findNavController().navigate(R.id.action_homeFragment_to_createEventFragment)
+        }
         // returning
         return binding.root
     }
@@ -55,6 +60,11 @@ class RecyclerEventsFragment: Fragment() {
         super.onViewCreated(view, savedInstanceState)
         arguments?.takeIf { it.containsKey(ARG_OBJECT) }?.apply {
             //prueba.text = "Fragmento " + getInt(ARG_OBJECT).toString()
+            if (getInt(ARG_OBJECT) == 3) {
+                fabCreateEvent.visibility = View.VISIBLE
+            } else {
+                fabCreateEvent.visibility = View.GONE
+            }
         }
     }
 }
