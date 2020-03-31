@@ -3,4 +3,8 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="sobre_nosotros">Evenementer App es una aplicacion con la que podras realizar eventos y consultar
+    sobre los eventos populares que estan vigentes en donde se te brindara informacion del evento, formas de pago,
+    clasificaciones, entre otras cosas.
+    De igual manera, podras organizar tus propios eventos.</string>
 </resources>
