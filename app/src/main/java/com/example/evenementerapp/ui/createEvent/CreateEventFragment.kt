@@ -19,6 +19,7 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.Toast
 import com.example.evenementerapp.R
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.FileOutputStream
@@ -29,6 +30,7 @@ import java.util.*
 class CreateEventFragment : Fragment() {
 
     var btn: Button?=null
+    var floatingButton:FloatingActionButton?=null
     private var imageview: ImageView? = null
     private val GALLERY = 1
     private val CAMERA = 2
@@ -45,11 +47,12 @@ class CreateEventFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        btn=view.findViewById(R.id.button)
+
         imageview=view!!.findViewById(R.id.imageView)
+        floatingButton=view.findViewById(R.id.floatingActionButton)
 
 
-        btn!!.setOnClickListener {
+        floatingButton!!.setOnClickListener {
             showPictureDialog()
         }
     }
