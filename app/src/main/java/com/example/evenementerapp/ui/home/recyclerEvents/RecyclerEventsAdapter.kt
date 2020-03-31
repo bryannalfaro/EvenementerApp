@@ -4,7 +4,7 @@ import android.content.Context
 import android.view.LayoutInflater
 import androidx.recyclerview.widget.RecyclerView
 
-class RecyclerEventsAdapter internal constructor(context: Context): RecyclerView.Adapter<RecyclerEventsAdapter.ViewHolderData>() {
+/*class RecyclerEventsAdapter internal constructor(context: Context): RecyclerView.Adapter<RecyclerEventsAdapter.ViewHolderData>() {
 
     private val inflater: LayoutInflater = LayoutInflater.from(context)
     private var repos = emptyList<RepoProperty>() // Cached copy of words
@@ -35,4 +35,4 @@ class RecyclerEventsAdapter internal constructor(context: Context): RecyclerView
     }
 
     override fun getItemCount() = repos.size
-}
+}*/
