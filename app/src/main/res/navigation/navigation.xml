@@ -15,4 +15,9 @@
         android:name="com.example.evenementerapp.Home"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" />
+    <fragment
+        android:id="@+id/cameraScanner"
+        android:name="com.example.evenementerapp.CameraScanner"
+        android:label="fragment_camera_scanner"
+        tools:layout="@layout/fragment_camera_scanner" />
 </navigation>
