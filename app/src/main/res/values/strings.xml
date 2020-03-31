@@ -14,4 +14,7 @@
     <string name="menu_home">Home</string>
     <string name="About">About it</string>
     <string name="menu_others">Otros</string>
+    <string name="publics">Publics</string>
+    <string name="my_events">My Events</string>
+    <string name="organized">Organized</string>
 </resources>

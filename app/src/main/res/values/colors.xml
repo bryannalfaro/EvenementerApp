@@ -7,4 +7,5 @@
     <color name="orangePrimary">#FFA200</color>
     <color name="dark_letter">#272727</color>
     <color name="all_white">#FFFFFF</color>
+    <color name="gray_white">#E7E7E7</color>
 </resources>
