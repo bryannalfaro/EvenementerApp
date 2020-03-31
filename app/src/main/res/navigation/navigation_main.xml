@@ -3,16 +3,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation_main"
-    app:startDestination="@id/home2">
+    app:startDestination="@id/homeFragment">
 
     <fragment
-        android:id="@+id/about_it"
-        android:name="com.example.evenementerapp.About_it"
-        android:label="fragment_about_it"
-        tools:layout="@layout/fragment_about_it" />
+        android:id="@+id/homeFragment"
+        android:name="com.example.evenementerapp.ui.home.HomeFragment"
+        android:label="Home"
+        tools:layout="@layout/fragment_home"/>
     <fragment
-        android:id="@+id/home2"
-        android:name="com.example.evenementerapp.Home"
-        android:label="fragment_home"
-        tools:layout="@layout/fragment_home" />
+        android:id="@+id/aboutFragment"
+        android:name="com.example.evenementerapp.ui.about.AboutFragment"
+        android:label="fragment_about_it" />
 </navigation>

@@ -11,4 +11,7 @@
     sobre los eventos populares que estan vigentes en donde se te brindara informacion del evento, formas de pago,
     clasificaciones, entre otras cosas.
     De igual manera, podras organizar tus propios eventos.</string>
+    <string name="menu_home">Home</string>
+    <string name="About">About it</string>
+    <string name="menu_others">Otros</string>
 </resources>
