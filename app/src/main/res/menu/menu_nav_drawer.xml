@@ -16,6 +16,9 @@
             android:id="@+id/qrScannerFragment"
             android:icon="@drawable/ic_info_outline_white_24dp"
             android:title="QR Scanner temporal" />
+        <item
+            android:id="@+id/createEventFragment"
+            android:title="Event Prueba" />
     </group>
 
 </menu>

@@ -20,4 +20,8 @@
         android:name="com.example.evenementerapp.ui.qrScanner.QRScannerFragment"
         android:label="QRScannerFragment"
         tools:layout="@layout/fragment_qr_scanner" />
+    <fragment
+        android:id="@+id/createEventFragment"
+        android:name="com.example.evenementerapp.ui.createEvent.CreateEventFragment"
+        android:label="CreateEventFragment" />
 </navigation>
