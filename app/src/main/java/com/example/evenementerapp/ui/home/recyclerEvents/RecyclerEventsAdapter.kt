@@ -2,37 +2,41 @@ package com.example.evenementerapp.ui.home.recyclerEvents
 
 import android.content.Context
 import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
+import com.example.evenementerapp.R
+import com.example.evenementerapp.network.objects.Event
 
-/*class RecyclerEventsAdapter internal constructor(context: Context): RecyclerView.Adapter<RecyclerEventsAdapter.ViewHolderData>() {
+class RecyclerEventsAdapter internal constructor(context: Context): RecyclerView.Adapter<RecyclerEventsAdapter.ViewHolderData>() {
 
     private val inflater: LayoutInflater = LayoutInflater.from(context)
-    private var repos = emptyList<RepoProperty>() // Cached copy of words
+    private var events = emptyList<Event>() // Lista vacia de eventos
 
     inner class ViewHolderData(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val name: TextView = itemView.findViewById(R.id.repoName)
-        val description: TextView = itemView.findViewById(R.id.repoDescription)
+        val layout: ConstraintLayout = itemView.findViewById(R.id.layoutCardEvent)
+        val title: TextView = itemView.findViewById(R.id.prueba)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolderData {
-        val itemView = inflater.inflate(R.layout.list_repos_recycler, parent, false)
+        val itemView = inflater.inflate(R.layout.list_recycler_events, parent, false)
         return ViewHolderData(itemView)
     }
 
     override fun onBindViewHolder(holder: ViewHolderData, position: Int) {
-        val current = repos[position]
-        holder.name.text = current.name
-        holder.description.text = current.description
-        holder.itemView.setOnClickListener{
-            val intent = Intent(Intent.ACTION_VIEW, Uri.parse("${current.htmlUrl}"))
-            holder.itemView.context.startActivity(intent)
+        val current = events[position]
+        holder.title.text = current.title
+        holder.layout.setOnClickListener {
+            // TODO: llevarlo al fragment de evento por navigation
         }
     }
 
-    internal fun setRepos(repos: List<RepoProperty>) {
-        this.repos = repos
+    internal fun setEvents(events: List<Event>) {
+        this.events = events
         notifyDataSetChanged()
     }
 
-    override fun getItemCount() = repos.size
-}*/
+    override fun getItemCount() = events.size
+}

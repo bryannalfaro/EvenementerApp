@@ -8,4 +8,5 @@
     <color name="dark_letter">#272727</color>
     <color name="all_white">#FFFFFF</color>
     <color name="gray_white">#E7E7E7</color>
+    <color name="light_white_letter">#EDEDED</color>
 </resources>
