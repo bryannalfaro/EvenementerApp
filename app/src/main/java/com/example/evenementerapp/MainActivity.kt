@@ -31,7 +31,7 @@ class MainActivity : AppCompatActivity() {
         // menu should be considered as top level destinations.
         appBarConfiguration = AppBarConfiguration(
             setOf( //Los fragments en los que aparecera el navigation drawer, sino aparece la flechita
-                R.id.homeFragment, R.id.aboutFragment
+                R.id.homeFragment, R.id.aboutFragment, R.id.createEventFragment
             ), drawerLayout
         )
         //Hace que el navigation drawer sea visible en la barra
