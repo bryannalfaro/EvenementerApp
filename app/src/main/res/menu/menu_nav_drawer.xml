@@ -12,6 +12,10 @@
             android:id="@+id/aboutFragment"
             android:icon="@drawable/ic_info_outline_white_24dp"
             android:title="@string/About" />
+        <item
+            android:id="@+id/qrScannerFragment"
+            android:icon="@drawable/ic_info_outline_white_24dp"
+            android:title="QR Scanner temporal" />
     </group>
 
 </menu>

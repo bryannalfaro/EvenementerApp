@@ -13,5 +13,11 @@
     <fragment
         android:id="@+id/aboutFragment"
         android:name="com.example.evenementerapp.ui.about.AboutFragment"
-        android:label="fragment_about_it" />
+        android:label="fragment_about_it"
+        tools:layout="@layout/fragment_about" />
+    <fragment
+        android:id="@+id/qrScannerFragment"
+        android:name="com.example.evenementerapp.ui.qrScanner.QRScannerFragment"
+        android:label="QRScannerFragment"
+        tools:layout="@layout/fragment_qrscanner" />
 </navigation>
