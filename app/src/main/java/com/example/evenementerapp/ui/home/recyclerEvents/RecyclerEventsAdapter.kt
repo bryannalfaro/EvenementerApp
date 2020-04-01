@@ -6,6 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.navigation.NavOptions
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.evenementerapp.R
 import com.example.evenementerapp.network.objects.Event
@@ -29,7 +31,7 @@ class RecyclerEventsAdapter internal constructor(context: Context): RecyclerView
         val current = events[position]
         holder.title.text = current.title
         holder.layout.setOnClickListener {
-            // TODO: llevarlo al fragment de evento por navigation
+            it.findNavController().navigate(R.id.action_homeFragment_to_eventFragment)
         }
     }
 

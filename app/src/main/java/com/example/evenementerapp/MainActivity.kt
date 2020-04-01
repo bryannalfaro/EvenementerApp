@@ -2,6 +2,7 @@ package com.example.evenementerapp
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.widget.Toolbar
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.NavController
@@ -76,5 +77,6 @@ class MainActivity : AppCompatActivity() {
         val navController = findNavController(R.id.MainHostFragment)
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
     }
+
 }
 
