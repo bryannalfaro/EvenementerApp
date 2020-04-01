@@ -1,12 +1,9 @@
 package com.example.evenementerapp.ui.createEvent
 
-import android.Manifest.permission.CAMERA
 import android.app.AlertDialog
-import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
 import android.media.MediaScannerConnection
-import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
@@ -16,10 +13,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.EditText
 import android.widget.ImageView
 import android.widget.Toast
 import com.example.evenementerapp.R
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.zxing.BarcodeFormat
+import com.google.zxing.MultiFormatWriter
+import com.google.zxing.WriterException
+import com.google.zxing.common.BitMatrix
 import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.FileOutputStream
@@ -27,11 +29,16 @@ import java.io.IOException
 import java.util.*
 
 
+@Suppress("DEPRECATION")
 class CreateEventFragment : Fragment() {
+
+
 
     var btn: Button?=null
     var floatingButton:FloatingActionButton?=null
     private var imageview: ImageView? = null
+    internal var bitmap: Bitmap? = null
+    var editText:EditText?=null
     private val GALLERY = 1
     private val CAMERA = 2
 
@@ -48,6 +55,9 @@ class CreateEventFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        btn=view.findViewById(R.id.save)
+        editText=view.findViewById(R.id.eventName)
+
         imageview=view!!.findViewById(R.id.imageView)
         floatingButton=view.findViewById(R.id.floatingActionButton)
 
@@ -55,7 +65,116 @@ class CreateEventFragment : Fragment() {
         floatingButton!!.setOnClickListener {
             showPictureDialog()
         }
+
+        btn!!.setOnClickListener {
+            if (editText!!.text.toString().trim { it <= ' ' }.isEmpty()) {
+                Toast.makeText(activity, "Enter String!", Toast.LENGTH_SHORT).show()
+            } else {
+                try {
+                    bitmap = TextToImageEncode(editText!!.text.toString())
+                    imageview!!.setImageBitmap(bitmap)
+
+                    val path = saveImage(bitmap)  //give read write permission
+                    Toast.makeText(activity, "QRCode saved to -> $path", Toast.LENGTH_SHORT).show()
+                } catch (e: WriterException) {
+                    e.printStackTrace()
+                }
+
+            }
+        }
+
     }
+
+    fun saveImage(myBitmap: Bitmap?): String {
+        val bytes = ByteArrayOutputStream()
+        myBitmap!!.compress(Bitmap.CompressFormat.JPEG, 90, bytes)
+
+        val wallpaperDirectory = File(
+            Environment.getExternalStorageDirectory().absolutePath.toString() + IMAGE_DIRECTORY)
+        // have the object build the directory structure, if needed.
+
+        if (!wallpaperDirectory.exists()) {
+            Log.d("dirrrrrr", "" + wallpaperDirectory.mkdirs())
+            wallpaperDirectory.mkdirs()
+        }
+
+        try {
+            val f = File(wallpaperDirectory, Calendar.getInstance()
+                .timeInMillis.toString() + ".jpg")
+            f.createNewFile()   //give read write permission
+            val fo = FileOutputStream(f)
+            fo.write(bytes.toByteArray())
+            MediaScannerConnection.scanFile(activity,
+                arrayOf(f.path),
+                arrayOf("image/jpeg"), null)
+            fo.close()
+            Log.d("TAG", "File Saved::--->" + f.absolutePath)
+
+            return f.absolutePath.toString()
+        } catch (e1: IOException) {
+            e1.printStackTrace()
+        }
+
+        return ""
+
+    }
+
+
+    @Throws(WriterException::class)
+    private fun TextToImageEncode(Value: String): Bitmap? {
+        val bitMatrix: BitMatrix
+        try {
+            bitMatrix = MultiFormatWriter().encode(
+                Value,
+                BarcodeFormat.QR_CODE,
+
+                QRcodeWidth, QRcodeWidth, null
+            )
+
+        } catch (Illegalargumentexception: IllegalArgumentException) {
+
+            return null
+        }
+
+        val bitMatrixWidth = bitMatrix.width
+
+        val bitMatrixHeight = bitMatrix.height
+
+        val pixels = IntArray(bitMatrixWidth * bitMatrixHeight)
+
+        for (y in 0 until bitMatrixHeight) {
+            val offset = y * bitMatrixWidth
+
+            for (x in 0 until bitMatrixWidth) {
+
+                pixels[offset + x] = if (bitMatrix.get(x, y))
+                    resources.getColor(R.color.black)
+                else
+                    resources.getColor(R.color.white)
+            }
+        }
+        val bitmap = Bitmap.createBitmap(bitMatrixWidth, bitMatrixHeight, Bitmap.Config.ARGB_4444)
+
+        bitmap.setPixels(pixels, 0, 500, 0, 0, bitMatrixWidth, bitMatrixHeight)
+        return bitmap
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     private fun showPictureDialog() {
         val pictureDialog = AlertDialog.Builder(activity)
@@ -99,7 +218,7 @@ class CreateEventFragment : Fragment() {
                 try
                 {
                     val bitmap = MediaStore.Images.Media.getBitmap(activity!!.contentResolver, contentURI)
-                    val path = saveImage(bitmap)
+                    val path = saveImage2(bitmap)
                     Toast.makeText(activity, "Image Saved!", Toast.LENGTH_SHORT).show()
                     imageview!!.setImageBitmap(bitmap)
 
@@ -116,16 +235,16 @@ class CreateEventFragment : Fragment() {
         {
             val thumbnail = data!!.extras!!.get("data") as Bitmap
             imageview!!.setImageBitmap(thumbnail)
-            saveImage(thumbnail)
+            saveImage2(thumbnail)
             Toast.makeText(activity, "Image Saved!", Toast.LENGTH_SHORT).show()
         }
     }
 
-    fun saveImage(myBitmap: Bitmap):String {
+    fun saveImage2(myBitmap: Bitmap):String {
         val bytes = ByteArrayOutputStream()
         myBitmap.compress(Bitmap.CompressFormat.JPEG, 90, bytes)
         val wallpaperDirectory = File(
-            (Environment.getExternalStorageDirectory()).toString() + IMAGE_DIRECTORY)
+            (Environment.getExternalStorageDirectory()).toString() + IMAGE_DIRECTORYA)
         // have the object build the directory structure, if needed.
         Log.d("fee",wallpaperDirectory.toString())
         if (!wallpaperDirectory.exists())
@@ -146,7 +265,7 @@ class CreateEventFragment : Fragment() {
                 arrayOf(f.getPath()),
                 arrayOf("image/jpeg"), null)
             fo.close()
-            Log.d("TAG", "File Saved::--->" + f.getAbsolutePath())
+            Log.d("TAG", "File Saved::--->" + f.absolutePath)
 
             return f.getAbsolutePath()
         }
@@ -158,7 +277,9 @@ class CreateEventFragment : Fragment() {
     }
 
     companion object {
-        private val IMAGE_DIRECTORY = "/demonuts"
+        val QRcodeWidth = 500
+        val IMAGE_DIRECTORY = "/WallPaper"
+        private val IMAGE_DIRECTORYA = "/demonuts"
     }
 
 
