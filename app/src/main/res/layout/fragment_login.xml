@@ -71,7 +71,7 @@
             android:layout_height="wrap_content"
             android:text="Password"
             android:textColor="@color/orangePrimary"
-            app:layout_constraintBottom_toTopOf="@+id/editText3"
+            app:layout_constraintBottom_toTopOf="@+id/etPassword"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.29"
             app:layout_constraintStart_toStartOf="parent"
@@ -79,7 +79,7 @@
             app:layout_constraintVertical_bias="1.0" />
 
         <EditText
-            android:id="@+id/editText4"
+            android:id="@+id/etUserName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ems="10"
@@ -97,7 +97,7 @@
             app:layout_constraintVertical_bias="0.94" />
 
         <EditText
-            android:id="@+id/editText3"
+            android:id="@+id/etPassword"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ems="10"
@@ -118,7 +118,7 @@
             android:layout_height="wrap_content"
             android:text="Username"
             android:textColor="@color/orangePrimary"
-            app:layout_constraintBottom_toTopOf="@+id/editText4"
+            app:layout_constraintBottom_toTopOf="@+id/etUserName"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.29"
             app:layout_constraintStart_toStartOf="parent"
