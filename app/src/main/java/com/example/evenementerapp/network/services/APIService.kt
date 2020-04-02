@@ -16,7 +16,7 @@ import java.util.*
 import java.util.logging.Level
 
 //TODO: Cambiar la ip a la de su compu
-private const val BASE_URL = "http://192.168.1.8:3000/api/"
+private const val BASE_URL = "http://192.168.1.6:3000/api/"
 private const val POSTS_URL = "posts"
 
 private val moshi = Moshi.Builder()
