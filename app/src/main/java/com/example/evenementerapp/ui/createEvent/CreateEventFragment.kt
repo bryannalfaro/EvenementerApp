@@ -31,6 +31,12 @@ import java.io.*
 import java.lang.Exception
 import java.util.*
 
+/**
+ * Referencias:
+ * https://medium.com/@hasangi/capture-image-or-choose-from-gallery-photos-implementation-for-android-a5ca59bc6883
+ * https://stackoverflow.com/questions/10165302/dialog-to-pick-image-from-gallery-or-from-camera
+ * https://androidwave.com/capture-image-from-camera-gallery/
+ */
 
 @Suppress("DEPRECATION")
 class CreateEventFragment : Fragment() {

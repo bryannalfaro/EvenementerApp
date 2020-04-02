@@ -16,6 +16,12 @@ import com.google.zxing.integration.android.IntentIntegrator
 
 class QRScannerFragment : Fragment() {
 
+    /**
+     * Referencias:
+     * https://stackoverflow.com/questions/40725336/android-studio-start-qr-code-scanner-from-fragment
+     * https://www.youtube.com/watch?v=rEHSdvLjU4I
+     */
+
 
     internal var btnScan: Button? = null
     internal var qrScanIntegrator: IntentIntegrator? = null
