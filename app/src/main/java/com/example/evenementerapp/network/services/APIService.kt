@@ -47,3 +47,7 @@ object APIService {
     }
     // TODO: More services...
 }
+
+data class EncryptedData (
+    var data: String
+)

@@ -4,8 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -42,13 +44,11 @@ class RecyclerEventsFragment: Fragment() {
         // Setting elements
         recycler.adapter = adapter
         recycler.layoutManager = LinearLayoutManager(context)
-        // prueba
-        var events = ArrayList<Event>()
-        events.add(Event("nuevo"))
-        events.add(Event("probando"))
-        events.add(Event("otro"))
-        adapter.setEvents(events)
         // Listeners
+        recyclerEventsViewModel.events.observe(this.viewLifecycleOwner, Observer {
+            Toast.makeText(context, it.get(0).title, Toast.LENGTH_SHORT).show()
+            adapter.setEvents(it)
+        })
         binding.fabCreateEvent.setOnClickListener {
             it.findNavController().navigate(R.id.action_homeFragment_to_createEventFragment)
         }
@@ -59,7 +59,7 @@ class RecyclerEventsFragment: Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         arguments?.takeIf { it.containsKey(ARG_OBJECT) }?.apply {
-            //prueba.text = "Fragmento " + getInt(ARG_OBJECT).toString()
+            recyclerEventsViewModel.setFragmentNumber(getInt(ARG_OBJECT))
             if (getInt(ARG_OBJECT) == 3) {
                 fabCreateEvent.visibility = View.VISIBLE
             } else {

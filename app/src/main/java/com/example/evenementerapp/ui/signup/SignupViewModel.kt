@@ -1,11 +1,14 @@
 package com.example.evenementerapp.ui.signup
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.evenementerapp.network.objects.User
 import com.example.evenementerapp.network.objects.UserSingleResponse
 import com.example.evenementerapp.network.services.APIService
+import com.example.evenementerapp.ui.UtilsApp
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -20,10 +23,12 @@ class SignupViewModel : ViewModel() {
     val signup: LiveData<Boolean>
         get() = _signup
 
+    @RequiresApi(Build.VERSION_CODES.O)
     fun signUp(user: User) {
         if (!user.userName.equals("") && !user.password.equals("") &&
             !user.Name.equals("") && !user.LastName.equals("") &&
             !user.Email.equals("")) {
+            user.password = UtilsApp.encryptPassword(user.password, "SecurityPasswordKey")
             Thread {
                 APIService.retrofitUserService.signUp(user).enqueue(object : Callback<UserSingleResponse> {
 

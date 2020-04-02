@@ -7,7 +7,7 @@ data class User (
     @Json(name = "UserName")
     val userName: String,
     @Json(name = "Password")
-    val password: String,
+    var password: String,
     @Json(name = "Name")
     val Name: String,
     @Json(name = "LastName")

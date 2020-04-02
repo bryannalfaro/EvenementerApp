@@ -4,10 +4,12 @@ import com.example.evenementerapp.network.objects.Event
 import retrofit2.Call
 import retrofit2.http.GET
 
+private const val PUB_URL = "publication/"
+
 interface EventService {
 
-    @GET("/event")
+    @GET(PUB_URL)
     fun getAllEvents():
-            Call<Event>
+            Call<List<Event>>
 
 }
