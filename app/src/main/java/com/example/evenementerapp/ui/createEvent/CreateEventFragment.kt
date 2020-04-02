@@ -68,40 +68,38 @@ class CreateEventFragment : Fragment() {
 
 
         floatingButton!!.setOnClickListener {
-            showPictureDialog()
+            mensajeImagenMostrar()
         }
 
         btn!!.setOnClickListener {
             if (editText!!.text.toString().trim { it <= ' ' }.isEmpty()) {
-                Toast.makeText(activity, "Enter String!", Toast.LENGTH_SHORT).show()
+                Toast.makeText(activity, "Por favor ingrese un texto!", Toast.LENGTH_SHORT).show()
             } else {
                 try {
-                    bitmap = TextToImageEncode(editText!!.text.toString())
+                    bitmap = PassTexttoImage(editText!!.text.toString())
                     imageView2!!.setImageBitmap(bitmap)
 
-                    Toast.makeText(activity, "QRCode saved to -> ", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(activity, "QRCode guardado en -> ", Toast.LENGTH_SHORT).show()
                 } catch (e: WriterException) {
                     e.printStackTrace()
                 }
 
             }
 
-
             if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.M){
                 if(ContextCompat.checkSelfPermission(requireActivity(),Manifest.permission.WRITE_EXTERNAL_STORAGE)!= PackageManager.PERMISSION_GRANTED){
                     ActivityCompat.requestPermissions(requireActivity(), arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE),100)
                 }else{
-                    saveImageToStorage(bitmap)
+                    guardarImagenAlmacenamiento(bitmap)
                 }
             } else{
-                saveImageToStorage(bitmap)
+                guardarImagenAlmacenamiento(bitmap)
             }
         }
 
     }
 
-
-    fun saveImageToStorage(bitmap: Bitmap?){
+    fun guardarImagenAlmacenamiento(bitmap: Bitmap?){
         val externalStorageState= Environment.getExternalStorageState()
         if(externalStorageState.equals(Environment.MEDIA_MOUNTED)){
             val storageDirectory=Environment.getExternalStorageDirectory().toString()
@@ -131,20 +129,14 @@ class CreateEventFragment : Fragment() {
             if(grantResults.isNotEmpty()&& grantResults[0]==PackageManager.PERMISSION_GRANTED){
 
             }else{
-                Toast.makeText(activity,"Permission not", Toast.LENGTH_SHORT).show()
+                Toast.makeText(activity,"No hay permiso", Toast.LENGTH_SHORT).show()
             }
         }
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
     }
 
-
-
-
-
-
-
     @Throws(WriterException::class)
-    private fun TextToImageEncode(Value: String): Bitmap? {
+    private fun PassTexttoImage(Value: String): Bitmap? {
         val bitMatrix: BitMatrix
         try {
             bitMatrix = MultiFormatWriter().encode(
@@ -182,38 +174,21 @@ class CreateEventFragment : Fragment() {
         return bitmap
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    private fun showPictureDialog() {
+    private fun mensajeImagenMostrar() {
         val pictureDialog = AlertDialog.Builder(activity)
-        pictureDialog.setTitle("Select Action")
-        val pictureDialogItems = arrayOf("Select photo from gallery", "Capture photo from camera")
+        pictureDialog.setTitle("Selecciona una opcion")
+        val pictureDialogItems = arrayOf("Seleccionar foto de galeria", "Capturar de la camara")
         pictureDialog.setItems(pictureDialogItems
         ) { dialog, which ->
             when (which) {
-                0 -> choosePhotoFromGallary()
-                1 -> takePhotoFromCamera()
+                0 -> PhotoGallery()
+                1 -> PhotoCamera()
             }
         }
         pictureDialog.show()
     }
 
-    fun choosePhotoFromGallary() {
+    fun PhotoGallery() {
         val galleryIntent = Intent(Intent.ACTION_PICK,
 
             MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
@@ -221,7 +196,7 @@ class CreateEventFragment : Fragment() {
         startActivityForResult(galleryIntent, GALLERY)
     }
 
-    private fun takePhotoFromCamera() {
+    private fun PhotoCamera() {
         val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
         startActivityForResult(intent, CAMERA)
     }
@@ -229,10 +204,7 @@ class CreateEventFragment : Fragment() {
     public override fun onActivityResult(requestCode:Int, resultCode:Int, data: Intent?) {
 
         super.onActivityResult(requestCode, resultCode, data)
-        /* if (resultCode == this.RESULT_CANCELED)
-         {
-         return
-         }*/
+
         if (requestCode == GALLERY)
         {
             if (data != null)
@@ -242,7 +214,7 @@ class CreateEventFragment : Fragment() {
                 {
                     val bitmap = MediaStore.Images.Media.getBitmap(activity!!.contentResolver, contentURI)
                     val path = saveImage2(bitmap)
-                    Toast.makeText(activity, "Image Saved!", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(activity, "Imagen guardada!", Toast.LENGTH_SHORT).show()
                     imageview!!.setImageBitmap(bitmap)
 
                 }
@@ -259,7 +231,7 @@ class CreateEventFragment : Fragment() {
             val thumbnail = data!!.extras!!.get("data") as Bitmap
             imageview!!.setImageBitmap(thumbnail)
             saveImage2(thumbnail)
-            Toast.makeText(activity, "Image Saved!", Toast.LENGTH_SHORT).show()
+            Toast.makeText(activity, "Imagen guardada!", Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -268,8 +240,8 @@ class CreateEventFragment : Fragment() {
         myBitmap.compress(Bitmap.CompressFormat.JPEG, 90, bytes)
         val wallpaperDirectory = File(
             (Environment.getExternalStorageDirectory()).toString() + IMAGE_DIRECTORYA)
-        // have the object build the directory structure, if needed.
-        Log.d("fee",wallpaperDirectory.toString())
+
+
         if (!wallpaperDirectory.exists())
         {
 
@@ -278,7 +250,7 @@ class CreateEventFragment : Fragment() {
 
         try
         {
-            Log.d("heel",wallpaperDirectory.toString())
+
             val f = File(wallpaperDirectory, ((Calendar.getInstance()
                 .getTimeInMillis()).toString() + ".jpg"))
             f.createNewFile()
@@ -301,7 +273,6 @@ class CreateEventFragment : Fragment() {
 
     companion object {
         val QRcodeWidth = 500
-        val IMAGE_DIRECTORY = "/WallPaper"
         private val IMAGE_DIRECTORYA = "/demonuts"
     }
 

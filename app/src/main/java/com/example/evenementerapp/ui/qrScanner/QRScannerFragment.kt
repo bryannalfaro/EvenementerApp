@@ -12,13 +12,10 @@ import android.widget.Toast
 import com.example.evenementerapp.R
 import com.google.zxing.integration.android.IntentIntegrator
 
-// TODO: Rename parameter arguments, choose names that match
+
 
 class QRScannerFragment : Fragment() {
 
-    internal var txtName: TextView? = null
-
-    internal var txtSiteName: TextView? = null
 
     internal var btnScan: Button? = null
     internal var qrScanIntegrator: IntentIntegrator? = null
@@ -34,7 +31,7 @@ class QRScannerFragment : Fragment() {
 
 
         btnScan = view.findViewById(R.id.btnScan)
-        btnScan!!.setOnClickListener { performAction() }
+        btnScan!!.setOnClickListener { Accion() }
 
         qrScanIntegrator = IntentIntegrator.forSupportFragment(this)
         qrScanIntegrator?.setOrientationLocked(false)
@@ -42,7 +39,7 @@ class QRScannerFragment : Fragment() {
 
     }
 
-    private fun performAction() {
+    private fun Accion() {
         qrScanIntegrator?.initiateScan()
     }
 
@@ -50,7 +47,7 @@ class QRScannerFragment : Fragment() {
         val result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data)
         if(result != null) {
             if(result.getContents() == null) {
-                Toast.makeText(activity, "Cancelled", Toast.LENGTH_LONG).show();
+                Toast.makeText(activity, "Cancelado", Toast.LENGTH_LONG).show();
             } else {
                 Toast.makeText(activity, "Texto Escaneado: " + result.getContents(), Toast.LENGTH_LONG).show();
             }
